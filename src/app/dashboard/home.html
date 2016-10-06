@@ -1,0 +1,107 @@
+<div layout="vertical" layout-fill>
+
+  <md-content layout-fill flex-offset>
+    <header>
+      <acme-navbar></acme-navbar>
+    </header>
+    <div flex="" layout="row" layout-align="center center">
+        <a flex="15" ng-href="http://hmis2.health.go.ug/hmis2"><h1>HMIS2</h1></a>
+        <a flex="15" ng-href="http://hmis10.health.go.ug/training"><h1>Training</h1></a>
+        <a flex="30" ng-href="http://hmis10.health.go.ug/hmis2backup"><h1>HMIS Backup (2010-2015)</h1></a>
+        <a flex="15" ng-href="http://hmis3.health.go.ug/hmis3inv"><h1>Inventory</h1></a>
+        <a flex="15" ng-href="http://hmis3.health.go.ug/idsr"><h1>IDSR/EOC</h1></a>
+    </div>
+    <section class="jumbotron" layout="row" layout-xs="column" layout-md="column" layout-lg="column" layout-xl="column" layout-sm="column">
+        <div flex="30">
+            <section class="jumbotron" layout="row">
+                <div flex="80">
+                    <md-select ng-model="home.selectedChartFavourite" placeholder="Select Charts" ng-model-options="{trackBy: '$value.id'}">
+                      <md-option ng-value="favor" ng-repeat="favor in home.chartFavourites track by $index">{{ favor.name }}</md-option>
+                    </md-select>
+                </div>
+                <div flex="20" layout="row" layout-align="end">
+                    <md-button ng-click="home.getSelectedItems(home.selectedChartFavourite)">
+                        <ng-md-icon icon="add_box" size="48"></ng-md-icon>
+                    </md-button>
+                </div>
+            </section>
+        </div>
+        <div flex="5"></div>
+        <div flex="30">
+            <section class="jumbotron" layout="row">
+                <div flex="80">
+                    <md-select ng-model="home.selectedPivotFavourite" placeholder="Select Reports" ng-model-options="{trackBy: '$value.id'}">
+                      <md-option ng-value="report" ng-repeat="report in home.pivotFavourites track by $index">{{ report.name }}</md-option>
+                    </md-select>
+                </div>
+                <div flex="20" layout="row" layout-align="end">
+                     <md-button ng-click="home.getSelectedItems(home.selectedPivotFavourite)">
+                        <ng-md-icon icon="add_box" size="48"></ng-md-icon>
+                    </md-button>
+                </div>
+            </section>
+        </div>
+        <div flex="5"></div>
+        <div flex="30">
+            <section class="jumbotron" layout="row">
+                <div flex="80">
+                    <md-select ng-model="home.selectedGisFavourite" placeholder="Select GIS Maps" ng-model-options="{trackBy: '$value.id'}">
+                      <md-option ng-value="gis" ng-repeat="gis in home.gisFavourites track by $index">{{ gis.name }}</md-option>
+                    </md-select>
+                </div>
+                <div flex="20" layout="row" layout-align="end">
+                     <md-button ng-click="home.getSelectedItems(home.selectedGisFavourite)">
+                        <ng-md-icon icon="add_box" size="48"></ng-md-icon>
+                    </md-button>
+                </div>
+            </section>
+        </div>
+    </section>
+    <div layout="row" layout-xs="column" layout-md="column" layout-lg="column" layout-xl="column" layout-sm="column">
+        <div flex="50" layout="column" layout-align="center">
+            <md-card ng-repeat="chartconfig in home.chartsConfigs track by $index" ng-if="($index % 2) === 0">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{ chartconfig.name }} </span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>
+                        <div class="row">
+                            <highchart id="chart-{{ chartconfig.id}}" config="chartconfig.config"></highchart>
+                       </div>
+                    </p>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button  class="md-icon-button" aria-label="assets/icons/{{ icon.name }}" ng-repeat="icon in home.icons">
+                        <img ng-click="home.getChartType(icon.name,chartconfig.id)" ng-src="assets/icons/{{ icon.image }}"></img>
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+        <div flex layout="column" layout-align="center">
+            <md-card ng-repeat="chartconfig in home.chartsConfigs track by $index" ng-if="($index % 2) !== 0">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{ chartconfig.name }} </span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>
+                        <div class="row">
+                            <highchart id="chart-{{ chartconfig.id}}" config="chartconfig.config"></highchart>
+                       </div>
+                    </p>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button  class="md-icon-button" aria-label="assets/icons/{{ icon.name }}" ng-repeat="icon in home.icons">
+                        <img ng-click="home.getChartType(icon.name,chartconfig.id)" ng-src="assets/icons/{{ icon.image }}"></img>
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+      </div>
+  </md-content>
+
+</div>
+
